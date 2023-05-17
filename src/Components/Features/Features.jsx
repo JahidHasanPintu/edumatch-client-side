@@ -13,7 +13,7 @@ const Features = () => {
         </div>
         <div class="feature-block flex w-full items-start flex-row feature-block"><span class="flex items-center justify-center w-70px h-70px rounded-full mr-20px bg-gray-300 flex-shrink-0 text-24px font-semibold" style={{"background-color":"#ceeffe"}}>2</span>
             <div class="flex flex-col items-start"><span class="w-full text-18px font-semibold text-gray-900 mt-0 mb-2">Picking your order</span>
-                <p class="w-full leading-6 text-14px">Your order is being picked and now will be forwarded for packaging.</p>
+                <p class="w-full leading-6 text-14px">Your order is  picked and now will be forwarded for packaging.</p>
             </div>
         </div>
         <div class="feature-block flex w-full items-start flex-row feature-block"><span class="flex items-center justify-center w-70px h-70px rounded-full mr-20px bg-gray-300 flex-shrink-0 text-24px font-semibold" style={{"background-color":"#d4f8c4"}}>3</span>
