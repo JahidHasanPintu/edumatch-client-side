@@ -2,8 +2,10 @@ import React, { useRef, useState } from 'react';
 import google from '../../assets/images/google.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.init';
-import { useSendPasswordResetEmail, useSignInWithEmailAndPassword, useSignInWithGoogle, useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import { ToastContainer, toast } from 'react-toastify';
+import teachingReg from '../../assets/images/teacherRegistration.jpg';
+import { useCreateUserWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import { updateProfile, sendEmailVerification } from 'firebase/auth';
 
 
 const Register = () => {
@@ -14,6 +16,8 @@ const Register = () => {
     const navigate = useNavigate();
     const location = useLocation();
     let from = location.state?.from?.pathname || "/";
+
+
     const [
         createUserWithEmailAndPassword,
         user,
@@ -22,12 +26,59 @@ const Register = () => {
         sending,
     ] = useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
 
-    const handleRegister = async event => {
+    // const handleRegister = async event => {
+    //     event.preventDefault();
+    //     createUserWithEmailAndPassword(email, password);
+    //     toast('verification email sent');
+    //     navigate(from, { replace: true });
+    // }
+
+    const handleRegister = async (event) => {
         event.preventDefault();
-        createUserWithEmailAndPassword(email, password);
-        toast('verification email sent');
-        navigate(from, { replace: true });
-    }
+      
+        try {
+          // Create the user with email and password
+          const { user } = await createUserWithEmailAndPassword(auth, email, password);
+      
+          // Update the user's display name
+          await updateProfile(user, {
+            displayName: fullName, 
+          });
+      
+      
+          toast("Verification email sent");
+          navigate(from, { replace: true });
+        } catch (error) {
+          // Handle any errors
+          console.error("Registration Error:", error);
+        }
+      };
+    
+//   const [createUserWithEmailAndPassword, user, error, loading, sending] = useCreateUserWithEmailAndPassword(auth);
+
+//   const handleRegister = async (event) => {
+//     event.preventDefault();
+
+//     try {
+//       // Create the user with email and password
+//       await createUserWithEmailAndPassword(email, password);
+
+//       // Update the user's display name
+//       const currentUser = auth.currentUser;
+//       await updateProfile(currentUser, {
+//         displayName: fullName, // Replace 'name' with the actual name value
+//       });
+
+//       // Send email verification
+//       await sendEmailVerification(currentUser);
+
+//       toast('Verification email sent');
+//       navigate(from, { replace: true });
+//     } catch (error) {
+//       // Handle any errors
+//       console.error('Registration Error:', error);
+//     }
+//   };
 
 
     const [error1, setError1] = useState('');
@@ -49,10 +100,11 @@ const Register = () => {
 
     return (
         <div>
+            <div className="flex flex-col sm:flex-row">
             <div className="m-auto py-12 px-6 sm:p-20 xl:w-6/12">
                 <div className="space-y-4">
 
-                    <p className="font-medium text-lg text-gray-600">Welcome to Computer Care ! Please sign up </p>
+                    <p className="font-medium text-lg text-gray-600">Welcome to Edu Match ! Please sign up </p>
                 </div>
 
                 <div className="mt-10 grid gap-6 sm:grid-cols-2">
@@ -133,6 +185,13 @@ const Register = () => {
                     </div>
                 </div>
             </div>
+
+            <div className="hidden sm:block py-12 px-6  sm:p-20 xl:w-6/12">
+                    <img src={teachingReg} alt="" />
+                </div>
+
+            </div>
+            
 
         </div>
     );
