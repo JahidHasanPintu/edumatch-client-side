@@ -11,6 +11,7 @@ import Footer from './Components/Shared/Footer/Footer';
 import Tutors from './Components/Tutors/Tutors';
 import RequireAuth from './Components/RequireAuth/RequireAuth';
 import Account from './Components/Account/Account';
+import PostProposal from './Components/PostProposal/PostProposal';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         
         <Route path="/" element={<Home/>}></Route>
         <Route path="/tutors" element={<Tutors/>}></Route>
+        <Route path="/create-proposal" element={<PostProposal/>}></Route>
         <Route path="login" element={<Login/>}></Route>
         <Route path="/register" element={<Register/>}></Route>
         <Route path="/account" element={<RequireAuth>
