@@ -16,21 +16,23 @@ import PostProposal from './Components/PostProposal/PostProposal';
 function App() {
   return (
     <div className="">
-      
-      <Navbar/>
+
+      <Navbar />
       <Routes>
-        
-        <Route path="/" element={<Home/>}></Route>
-        <Route path="/tutors" element={<Tutors/>}></Route>
-        <Route path="/create-proposal" element={<PostProposal/>}></Route>
-        <Route path="login" element={<Login/>}></Route>
-        <Route path="/register" element={<Register/>}></Route>
+
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/tutors" element={<Tutors />}></Route>
+        <Route path="/create-proposal" element={<RequireAuth>
+          <PostProposal />
+        </RequireAuth>}></Route>
+        <Route path="login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
         <Route path="/account" element={<RequireAuth>
-         <Account/>
+          <Account />
         </RequireAuth>}></Route>
 
       </Routes>
-      <Footer/>
+      <Footer />
       <ToastContainer />
     </div>
   );
