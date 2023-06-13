@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 const PostProposal = () => {
     const [teacherLocation, setTeacherLocation] = useState(null);
     const [user] = useAuthState(auth);
+
     useEffect(() => {
         // Check if the browser supports geolocation
         if ('geolocation' in navigator) {
@@ -27,6 +28,7 @@ const PostProposal = () => {
     }, []);
 
     const [formData, setFormData] = useState({
+        email: '',
         name: '',
         image: '',
         subject: '',
@@ -49,7 +51,8 @@ const PostProposal = () => {
             setFormData(prevFormData => ({
                 ...prevFormData,
                 image: user.photoURL,
-                name: user.displayName
+                name: user.displayName,
+                email: user.email
             }));
         }
     }, [teacherLocation]);
